@@ -1,9 +1,60 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Olav's nettside</title>
+    <title>Olav's nettside</title>
+    <style>
+        body {
+            overflow: hidden;
+            height: 100vh;
+            margin: 0;
+        }
+
+        #runaway {
+            position: absolute;
+            padding: 15px 30px;
+            font-size: 20px;
+        }
+    </style>
 </head>
 <body>
-  <h1>Hallo</h1>
+
+<button id="runaway">Trykk meg</button>
+
+<script>
+    const btn = document.getElementById("runaway");
+
+    btn.style.left = "50%";
+    btn.style.top = "50%";
+
+    document.addEventListener("mousemove", (e) => {
+        const rect = btn.getBoundingClientRect();
+
+        const btnX = rect.left + rect.width / 2;
+        const btnY = rect.top + rect.height / 2;
+
+        const dx = btnX - e.clientX;
+        const dy = btnY - e.clientY;
+
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (distance < 150) {
+            let newX = rect.left + dx * 2;
+            let newY = rect.top + dy * 2;
+
+            const maxX = window.innerWidth - rect.width;
+            const maxY = window.innerHeight - rect.height;
+
+            // Hvis knappen nærmer seg kanten, teleporteres den til et tilfeldig sted
+            if (newX < 0 || newX > maxX || newY < 0 || newY > maxY) {
+                newX = Math.random() * maxX;
+                newY = Math.random() * maxY;
+            }
+
+            btn.style.left = newX + "px";
+            btn.style.top = newY + "px";
+        }
+    });
+</script>
+
 </body>
 </html>
