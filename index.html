@@ -1,95 +1,84 @@
 <!DOCTYPE html>
-<html>
+<html lang="no">
 <head>
-    <title>Olav's nettside</title>
-    <style>
-        body {
-            margin: 0;
-            overflow: hidden;
-            height: 100vh;
-            font-family: Arial, sans-serif;
-        }
-
-        h1 {
-            text-align: center;
-            margin-top: 40px;
-        }
-
-        #runaway {
-            position: absolute;
-            padding: 15px 30px;
-            font-size: 20px;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Responsivt oppsett -->
+  <title>Olav Haraldstads heimeside</title>
+  <style>
+    /* Grunnleggende stil: fjern standardmarg på body for å plassere header i øverste venstre hjørne */
+    body {
+      margin: 0;
+      font-family: sans-serif;
+      display: grid;
+      grid-template-rows: auto 1fr auto; /* header, main, footer */
+      min-height: 100vh; /* gjør at footer alltid er nederst om innholdet er lite */
+    }
+    /* Header: Plasserer sidetittelen */
+    header {
+      background-color: #f0f0f0; /* lys bakgrunn for kontrast */
+      padding: 1em;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 1.5em;
+    }
+    /* Hovedinnhold: bildet sentrert */
+    main {
+      padding: 1em;
+      text-align: center;
+    }
+    main img {
+      max-width: 100%; /* sikrer at bildet skaleres ned på små skjermer */
+      height: auto;
+    }
+    /* Footer: Kontaktinformasjon i bunn */
+    footer {
+      background-color: #f0f0f0;
+      padding: 1em;
+      font-size: 0.9em;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      text-align: center;
+    }
+    footer p {
+      margin: 0.5em;
+    }
+    footer a {
+      color: blue;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
 
-<h1>Hallo</h1>
-<button id="runaway">Trykk meg</button>
+  <!-- Topptekst med nettsidens tittel -->
+  <header>
+    <h1>Olav Haraldstads heimeside</h1>
+  </header>
 
-<script>
-const btn = document.getElementById("runaway");
+  <!-- Hovedinnhold: bildet fra eksternt nettsted -->
+  <main>
+    <!-- Bruker full URL gitt i oppgaven, med alt-tekst for tilgjengelighet -->
+    <img src="https://media.discordapp.net/attachments/1372574081379209297/1516794477229113414/TruthNuke.gif"
+         alt="Animerte bokstaver som danner ordet 'TruthNuke'" width="587" height="540">
+  </main>
 
-let x = window.innerWidth / 2;
-let y = window.innerHeight / 2;
-let vx = 0;
-let vy = 0;
-
-function clamp(n, min, max) {
-    return Math.max(min, Math.min(max, n));
-}
-
-document.addEventListener("mousemove", (e) => {
-    const rect = btn.getBoundingClientRect();
-
-    const cx = rect.left + rect.width / 2;
-    const cy = rect.top + rect.height / 2;
-
-    const dx = cx - e.clientX;
-    const dy = cy - e.clientY;
-
-    const dist = Math.sqrt(dx * dx + dy * dy);
-
-    if (dist < 220 && dist > 0) {
-        const force = (220 - dist) / 20;
-
-        vx += (dx / dist) * force;
-        vy += (dy / dist) * force;
-    }
-});
-
-// smooth movement + anti-corner fix
-function animate() {
-    const rect = btn.getBoundingClientRect();
-
-    vx *= 0.85;
-    vy *= 0.85;
-
-    x += vx;
-    y += vy;
-
-    const margin = 20;
-
-    // hard anti-corner bounce
-    if (x <= margin || x >= window.innerWidth - rect.width - margin) {
-        vx *= -1;
-        x = clamp(x, margin, window.innerWidth - rect.width - margin);
-    }
-
-    if (y <= margin || y >= window.innerHeight - rect.height - margin) {
-        vy *= -1;
-        y = clamp(y, margin, window.innerHeight - rect.height - margin);
-    }
-
-    btn.style.left = x + "px";
-    btn.style.top = y + "px";
-    btn.style.transform = "none";
-
-    requestAnimationFrame(animate);
-}
-
-animate();
-</script>
+  <!-- Kontaktinformasjon i footer -->
+  <footer>
+    <p>E-post: 
+      <a href="mailto:Olav.haraldstad@gmail.com">Olav.haraldstad@gmail.com</a> 
+      <!-- Alternativt: &#79;&#108;&#97;... for å obfuskere -->
+    </p>
+    <p>Telefon: 
+      <a href="tel:+4740882807">+47 408 82 807</a>
+    </p>
+    <p>Adresse: The White House, 1600 Pennsylvania Avenue NW, Washington, DC 20500</p>
+    <!-- OBS: Ovenfor adresse er ment som humor/trolling. -->
+  </footer>
 
 </body>
 </html>
